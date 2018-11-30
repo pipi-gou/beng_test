@@ -16,6 +16,12 @@ onerror(app)
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
+app.use(async (ctx, next) => {
+    // 允许来自所有域名请求
+    ctx.set("Access-Control-Allow-Origin", "*");
+    ctx.set("Content-Type", "charset=gb2312");
+    await next();
+})
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
